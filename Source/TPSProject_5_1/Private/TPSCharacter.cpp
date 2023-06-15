@@ -1,6 +1,5 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "TPSCharacter.h"
 #include <GameFramework/SpringArmComponent.h>
 #include <Camera/CameraComponent.h>
@@ -49,7 +48,9 @@ ATPSCharacter::ATPSCharacter()
 void ATPSCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	firstJumpZVelocity = GetCharacterMovement()->JumpZVelocity;
+
 	// 스나이퍼 UI 위젯 인스턴스 생성
 	sniperUI = CreateWidget(GetWorld(), sniperUIFactory);
 
@@ -64,19 +65,18 @@ void ATPSCharacter::BeginPlay()
 void ATPSCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
 }
 
 // Called to bind functionality to input
-void ATPSCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void ATPSCharacter::SetupPlayerInputComponent(UInputComponent *PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	APlayerController* PlayerController = Cast<APlayerController>(Controller);
+	APlayerController *PlayerController = Cast<APlayerController>(Controller);
 
 	if (PlayerController)
 	{
-		UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer());
+		UEnhancedInputLocalPlayerSubsystem *Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer());
 		if (Subsystem)
 		{
 			Subsystem->AddMappingContext(tpsMappingContext, 0);
@@ -84,7 +84,7 @@ void ATPSCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	}
 
 	// 인풋 액션 바인딩
-	UEnhancedInputComponent* EnhancedInputComp = CastChecked<UEnhancedInputComponent>(PlayerInputComponent);
+	UEnhancedInputComponent *EnhancedInputComp = CastChecked<UEnhancedInputComponent>(PlayerInputComponent);
 	if (EnhancedInputComp)
 	{
 		// MoveForward
@@ -120,7 +120,7 @@ void ATPSCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompon
 	}
 }
 
-void ATPSCharacter::MoveForward(const FInputActionValue& Value)
+void ATPSCharacter::MoveForward(const FInputActionValue &Value)
 {
 	float Movement = Value.Get<float>();
 	if (Controller != nullptr)
@@ -134,7 +134,7 @@ void ATPSCharacter::MoveForward(const FInputActionValue& Value)
 	}
 }
 
-void ATPSCharacter::MoveRight(const FInputActionValue& Value)
+void ATPSCharacter::MoveRight(const FInputActionValue &Value)
 {
 	float Movement = Value.Get<float>();
 	if (Controller != nullptr)
@@ -148,7 +148,7 @@ void ATPSCharacter::MoveRight(const FInputActionValue& Value)
 	}
 }
 
-void ATPSCharacter::TurnPitch(const FInputActionValue& Value)
+void ATPSCharacter::TurnPitch(const FInputActionValue &Value)
 {
 	float Turn = -(Value.Get<float>());
 	if (Controller != nullptr)
@@ -157,7 +157,7 @@ void ATPSCharacter::TurnPitch(const FInputActionValue& Value)
 	}
 }
 
-void ATPSCharacter::TurnYaw(const FInputActionValue& Value)
+void ATPSCharacter::TurnYaw(const FInputActionValue &Value)
 {
 	float Turn = Value.Get<float>();
 	if (Controller != nullptr)
@@ -166,7 +166,7 @@ void ATPSCharacter::TurnYaw(const FInputActionValue& Value)
 	}
 }
 
-void ATPSCharacter::InputRun(const FInputActionValue& Value)
+void ATPSCharacter::InputRun(const FInputActionValue &Value)
 {
 	auto movement = GetCharacterMovement();
 	if (movement == nullptr)
@@ -183,3 +183,13 @@ void ATPSCharacter::InputRun(const FInputActionValue& Value)
 	}
 }
 
+void ATPSCharacter::OnJumped_Implementation()
+{
+	GetCharacterMovement()->JumpZVelocity = firstJumpZVelocity;
+}
+
+void ATPSCharacter::PlatformJump()
+{
+	GetCharacterMovement()->JumpZVelocity= firstJumpZVelocity * 2.75f;
+	ACharacter::Jump();
+}

@@ -32,14 +32,17 @@ public:
 	void MoveRight(const FInputActionValue& Value);
 	void TurnPitch(const FInputActionValue& Value);
 	void TurnYaw(const FInputActionValue& Value);
-	// ´Þ¸®±â ÀÌº¥Æ® Ã³¸® ÇÔ¼ö
+	// ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½Ìºï¿½Æ® Ã³ï¿½ï¿½ ï¿½Ô¼ï¿½
 	void InputRun(const FInputActionValue& Value);
 
+	void PlatformJump();
+
 public:
-	// °È±â ¼Óµµ
+	// ï¿½È±ï¿½ ï¿½Óµï¿½
 	float walkSpeed = 200;
-	// ´Þ¸®±â ¼Óµµ
+	// ï¿½Þ¸ï¿½ï¿½ï¿½ ï¿½Óµï¿½
 	float runSpeed = 600;
+	float firstJumpZVelocity;
 
 #pragma region /* Component*/
 public:
@@ -76,10 +79,10 @@ public:
 	class USoundBase* bulletSound;
 
 public:
-	// ½º³ªÀÌÆÛ UI À§Á¬ ÀÎ½ºÅÏ½º
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ UI ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½
 	class UUserWidget* sniperUI;
 
-	// Å©·Î½ºÇì¾î UI À§Á¬ ÀÎ½ºÅÏ½º
+	// Å©ï¿½Î½ï¿½ï¿½ï¿½ï¿½ UI ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½
 	class UUserWidget* crosshairUI;
 
 #pragma region Input
@@ -117,4 +120,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
 	class UInputAction* runAction;
 #pragma endregion
+
+	UFUNCTION();
+	void OnJumped_Implementation() override;
 };

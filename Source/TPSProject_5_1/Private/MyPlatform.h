@@ -2,7 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "GenerateParticle.h"
+#include "NiagaraComponent.h"
 #include "MyPlatform.generated.h"
 
 UCLASS()
@@ -13,24 +13,31 @@ class AMyPlatform : public AActor
 public:
 	AMyPlatform();
 
-protected:
+protected:\
 	virtual void BeginPlay() override;
-	virtual void NotifyActorBeginOverlap(AActor* otherActor) override;
-
-public:
 	virtual void Tick(float DeltaTime) override;
 
+public:
+	UFUNCTION(BlueprintCallable)
+	void ContactPlayer();
 
-private:
-	UGenerateParticle particleGenerator;
-
-		// CHILD
+	// CHILD
 protected:
-
-	void SetMesh(const TCHAR* name);
+	void SetMesh(const TCHAR *name);
 	virtual void OnBeginPlay();
 	virtual void OnTick();
+	virtual void OnContactPlayer();
+	void BindingOnHit();
 
-protected:
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Mesh)
+	UStaticMeshComponent *baseMesh;
 
+public:
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Effect)
+	class UNiagaraSystem *enterEffect;
+
+private:
+	UFUNCTION()
+	void OnHit(UPrimitiveComponent *HitComponent, AActor *OtherActor, UPrimitiveComponent *OtherComp, FVector NormalImpulse, const FHitResult &Hit);
 };
