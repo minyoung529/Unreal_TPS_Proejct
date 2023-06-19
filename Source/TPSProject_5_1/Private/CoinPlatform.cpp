@@ -16,7 +16,7 @@ ACoinPlatform::ACoinPlatform() : AMyPlatform()
 void ACoinPlatform::OnContactPlayer()
 {
 	// Niagara 시스템 생성
-	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), enterEffect, GetActorLocation());
+	ContactPlayer();
 }
 
 void ACoinPlatform::OnBeginPlay()

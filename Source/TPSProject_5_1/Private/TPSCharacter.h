@@ -20,20 +20,20 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	// Called to bind functionality to input
-	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+	virtual void SetupPlayerInputComponent(class UInputComponent *PlayerInputComponent) override;
 
 public:
-	void MoveForward(const FInputActionValue& Value);
-	void MoveRight(const FInputActionValue& Value);
-	void TurnPitch(const FInputActionValue& Value);
-	void TurnYaw(const FInputActionValue& Value);
+	void MoveForward(const FInputActionValue &Value);
+	void MoveRight(const FInputActionValue &Value);
+	void TurnPitch(const FInputActionValue &Value);
+	void TurnYaw(const FInputActionValue &Value);
 	// �޸��� �̺�Ʈ ó�� �Լ�
-	void InputRun(const FInputActionValue& Value);
+	void InputRun(const FInputActionValue &Value);
 
 	void PlatformJump();
 
@@ -47,16 +47,16 @@ public:
 #pragma region /* Component*/
 public:
 	UPROPERTY(VisibleAnywhere, Category = Camera)
-	class USpringArmComponent* springArmComp;
+	class USpringArmComponent *springArmComp;
 
 	UPROPERTY(VisibleAnywhere, Category = Camera)
-	class UCameraComponent* tpsCamComp;
+	class UCameraComponent *tpsCamComp;
 
 	UPROPERTY(VisibleAnywhere, Category = GunMesh)
-	class USkeletalMeshComponent* gunMeshComp;
+	class USkeletalMeshComponent *gunMeshComp;
 
 	UPROPERTY(VisibleAnywhere, Category = GunMesh)
-	class UStaticMeshComponent* sniperGunComp;
+	class UStaticMeshComponent *sniperGunComp;
 #pragma endregion
 
 public:
@@ -67,7 +67,7 @@ public:
 	TSubclassOf<class UUserWidget> sniperUIFactory;
 
 	UPROPERTY(EditAnywhere, Category = BulletEffect)
-	class UParticleSystem* bulletEffectFactory;
+	class UParticleSystem *bulletEffectFactory;
 
 	UPROPERTY(EditDefaultsOnly, Category = CrosshairUI)
 	TSubclassOf<class UUserWidget> crosshairUIFactory;
@@ -76,51 +76,50 @@ public:
 	TSubclassOf<class UCameraShakeBase> cameraShake;
 
 	UPROPERTY(EditDefaultsOnly, Category = Sound)
-	class USoundBase* bulletSound;
+	class USoundBase *bulletSound;
 
 public:
 	// �������� UI ���� �ν��Ͻ�
-	class UUserWidget* sniperUI;
+	class UUserWidget *sniperUI;
 
 	// ũ�ν���� UI ���� �ν��Ͻ�
-	class UUserWidget* crosshairUI;
+	class UUserWidget *crosshairUI;
 
 #pragma region Input
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta = (AllowPrivateAccess = "true"))
-	class UInputMappingContext* tpsMappingContext;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
+	class UInputMappingContext *tpsMappingContext;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* moveForwardAction;
+	class UInputAction *moveForwardAction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* moveRightAction;
+	class UInputAction *moveRightAction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* turnPitchAction;
+	class UInputAction *turnPitchAction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* turnYawAction;
+	class UInputAction *turnYawAction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* jumpAction;
+	class UInputAction *jumpAction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* fireAction;
+	class UInputAction *fireAction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* grenadeGunAction;
+	class UInputAction *grenadeGunAction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* sniperGunAction;
+	class UInputAction *sniperGunAction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* sniperZoominAction;
+	class UInputAction *sniperZoominAction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = Input, meta = (AllowPrivateAccess = "true"))
-	class UInputAction* runAction;
+	class UInputAction *runAction;
 #pragma endregion
 
-	UFUNCTION();
-	void OnJumped_Implementation() override;
+	virtual void OnJumped_Implementation() override;
 };

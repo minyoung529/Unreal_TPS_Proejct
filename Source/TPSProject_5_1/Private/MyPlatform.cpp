@@ -13,18 +13,25 @@ AMyPlatform::AMyPlatform()
 
 void AMyPlatform::BeginPlay()
 {
+	Super::BeginPlay();
+	PrimaryActorTick.bCanEverTick = true;
 	OnBeginPlay();
 }
 
 void AMyPlatform::ContactPlayer()
 {
 	OnContactPlayer();
-	UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), enterEffect, baseMesh->GetComponentLocation(), baseMesh->GetComponentRotation());
 }
 
 void AMyPlatform::Tick(float DeltaTime)
 {
+	Super::Tick(DeltaTime);
 	OnTick();
+
+	if (effectTimer > 0.f)
+	{
+		effectTimer -= GetWorld()->GetDeltaSeconds();
+	}
 }
 
 void AMyPlatform::SetMesh(const TCHAR *name)
@@ -47,10 +54,19 @@ void AMyPlatform::OnContactPlayer() {}
 
 void AMyPlatform::BindingOnHit()
 {
-    baseMesh->OnComponentHit.AddDynamic(this, &AMyPlatform::OnHit);
+	baseMesh->OnComponentHit.AddDynamic(this, &AMyPlatform::OnHit);
 }
 
 void AMyPlatform::OnHit(UPrimitiveComponent *HitComponent, AActor *OtherActor, UPrimitiveComponent *OtherComp, FVector NormalImpulse, const FHitResult &Hit)
 {
+	if (effectTimer <= 0.f)
+	{
+		if (enterEffect != nullptr)
+		{
+			UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), enterEffect, GetActorLocation() + effectOffset, baseMesh->GetComponentRotation());
+			effectTimer = 1.f;
+		}
+	}
+
 	OnContactPlayer();
 }

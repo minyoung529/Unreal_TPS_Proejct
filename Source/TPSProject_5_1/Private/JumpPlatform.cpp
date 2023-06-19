@@ -26,9 +26,6 @@ void AJumpPlatform::OnContactPlayer()
 			character->PlatformJump();
 		}
 	}
-	else
-	{
-	}
 }
 
 void AJumpPlatform::OnBeginPlay()

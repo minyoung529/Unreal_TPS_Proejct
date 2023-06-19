@@ -11,8 +11,37 @@ UCLASS()
 class ACloudPlatform : public AMyPlatform
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	ACloudPlatform();
-	
+
+protected:
+	virtual void OnBeginPlay() override;
+	virtual void OnTick() override;
+
+public:
+	UPROPERTY(EditAnywhere, Category = Visible)
+	float onTime;
+	UPROPERTY(EditAnywhere, Category = Visible)
+	float offTime;
+	UPROPERTY(EditAnywhere, Category = Visible)
+	float preDelay;
+
+	enum class VISIBLE_STATE
+	{
+		None,
+		Predelay,
+		Off,
+		On
+	};
+
+private:
+	float timer;
+
+	VISIBLE_STATE state = VISIBLE_STATE::None;
+
+	void ChangPlatformState(VISIBLE_STATE visibleState, float time);
+
+	void VisibleOnState();
+	void VisibleOffState();
 };

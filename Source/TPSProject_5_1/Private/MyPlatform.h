@@ -13,7 +13,7 @@ class AMyPlatform : public AActor
 public:
 	AMyPlatform();
 
-protected:\
+protected:
 	virtual void BeginPlay() override;
 	virtual void Tick(float DeltaTime) override;
 
@@ -37,7 +37,12 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Effect)
 	class UNiagaraSystem *enterEffect;
 
+	UPROPERTY(EditDefaultsOnly, Category = Effect)
+	FVector effectOffset;
+
 private:
+	float effectTimer = 0.f;
+
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent *HitComponent, AActor *OtherActor, UPrimitiveComponent *OtherComp, FVector NormalImpulse, const FHitResult &Hit);
 };
