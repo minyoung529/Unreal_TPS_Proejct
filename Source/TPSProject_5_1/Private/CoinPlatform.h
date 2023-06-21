@@ -20,6 +20,5 @@ public:
 	FVector scale = FVector(0.1f, 0.1f, 0.1f);
 
 protected:
-	virtual void OnContactPlayer();
 	virtual void OnBeginPlay();
 };

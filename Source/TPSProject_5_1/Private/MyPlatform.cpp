@@ -14,6 +14,7 @@ AMyPlatform::AMyPlatform()
 void AMyPlatform::BeginPlay()
 {
 	Super::BeginPlay();
+	effectTimer = 0.f;
 	PrimaryActorTick.bCanEverTick = true;
 	OnBeginPlay();
 }
@@ -64,8 +65,9 @@ void AMyPlatform::OnHit(UPrimitiveComponent *HitComponent, AActor *OtherActor, U
 		if (enterEffect != nullptr)
 		{
 			UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(), enterEffect, GetActorLocation() + effectOffset, baseMesh->GetComponentRotation());
-			effectTimer = 1.f;
 		}
+		
+		effectTimer = 0.3f;
 	}
 
 	OnContactPlayer();

@@ -13,12 +13,6 @@ ACoinPlatform::ACoinPlatform() : AMyPlatform()
 	RootComponent = baseMesh;
 }
 
-void ACoinPlatform::OnContactPlayer()
-{
-	// Niagara 시스템 생성
-	ContactPlayer();
-}
-
 void ACoinPlatform::OnBeginPlay()
 {
 	BindingOnHit();

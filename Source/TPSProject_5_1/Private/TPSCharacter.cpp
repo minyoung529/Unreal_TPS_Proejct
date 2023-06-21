@@ -52,13 +52,8 @@ void ATPSCharacter::BeginPlay()
 	firstJumpZVelocity = GetCharacterMovement()->JumpZVelocity;
 
 	// 스나이퍼 UI 위젯 인스턴스 생성
-	sniperUI = CreateWidget(GetWorld(), sniperUIFactory);
-
-	// 크로스헤어 UI 위젯 인스턴스 생성
-	crosshairUI = CreateWidget(GetWorld(), crosshairUIFactory);
-
-	// 크로스헤어 UI 등록
-	crosshairUI->AddToViewport();
+	victoryUI = CreateWidget(GetWorld(), victoryUIFactory);
+	GetCharacterMovement()->MaxWalkSpeed = runSpeed;
 }
 
 // Called every frame
@@ -102,21 +97,6 @@ void ATPSCharacter::SetupPlayerInputComponent(UInputComponent *PlayerInputCompon
 		// Jump
 		EnhancedInputComp->BindAction(jumpAction, ETriggerEvent::Triggered, this, &ACharacter::Jump);
 		EnhancedInputComp->BindAction(jumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
-
-		// InputFire
-		// EnhancedInputComp->BindAction(fireAction, ETriggerEvent::Triggered, this, &ATPSCharacter::InputFire);
-
-		// GrenadeGun
-		// EnhancedInputComp->BindAction(grenadeGunAction, ETriggerEvent::Triggered, this, &ATPSCharacter::ChangeToGrenadeGun);
-
-		// SniperGun
-		// EnhancedInputComp->BindAction(sniperGunAction, ETriggerEvent::Triggered, this, &ATPSCharacter::ChangeToSniperGun);
-
-		// SniperZoomin
-		// EnhancedInputComp->BindAction(sniperZoominAction, ETriggerEvent::Triggered, this, &ATPSCharacter::SniperZoomin);
-
-		// RunAction
-		EnhancedInputComp->BindAction(runAction, ETriggerEvent::Triggered, this, &ATPSCharacter::InputRun);
 	}
 }
 
@@ -166,23 +146,6 @@ void ATPSCharacter::TurnYaw(const FInputActionValue &Value)
 	}
 }
 
-void ATPSCharacter::InputRun(const FInputActionValue &Value)
-{
-	auto movement = GetCharacterMovement();
-	if (movement == nullptr)
-		return;
-
-	bool isRun = Value.Get<bool>();
-	if (isRun)
-	{
-		movement->MaxWalkSpeed = runSpeed;
-	}
-	else
-	{
-		movement->MaxWalkSpeed = walkSpeed;
-	}
-}
-
 void ATPSCharacter::OnJumped_Implementation()
 {
 	GetCharacterMovement()->JumpZVelocity = firstJumpZVelocity;
@@ -190,6 +153,11 @@ void ATPSCharacter::OnJumped_Implementation()
 
 void ATPSCharacter::PlatformJump()
 {
-	GetCharacterMovement()->JumpZVelocity= firstJumpZVelocity * 2.75f;
+	GetCharacterMovement()->JumpZVelocity = firstJumpZVelocity * 2.75f;
 	ACharacter::Jump();
+}
+
+void ATPSCharacter::Clear()
+{
+	victoryUI->AddToViewport();
 }

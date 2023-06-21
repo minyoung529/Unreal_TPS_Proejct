@@ -32,10 +32,10 @@ public:
 	void MoveRight(const FInputActionValue &Value);
 	void TurnPitch(const FInputActionValue &Value);
 	void TurnYaw(const FInputActionValue &Value);
-	// �޸��� �̺�Ʈ ó�� �Լ�
-	void InputRun(const FInputActionValue &Value);
 
 	void PlatformJump();
+
+	void Clear();
 
 public:
 	// �ȱ� �ӵ�
@@ -51,12 +51,6 @@ public:
 
 	UPROPERTY(VisibleAnywhere, Category = Camera)
 	class UCameraComponent *tpsCamComp;
-
-	UPROPERTY(VisibleAnywhere, Category = GunMesh)
-	class USkeletalMeshComponent *gunMeshComp;
-
-	UPROPERTY(VisibleAnywhere, Category = GunMesh)
-	class UStaticMeshComponent *sniperGunComp;
 #pragma endregion
 
 public:
@@ -64,26 +58,10 @@ public:
 	TSubclassOf<class ABullet> bulletFactory;
 
 	UPROPERTY(EditDefaultsOnly, Category = SniperUI)
-	TSubclassOf<class UUserWidget> sniperUIFactory;
-
-	UPROPERTY(EditAnywhere, Category = BulletEffect)
-	class UParticleSystem *bulletEffectFactory;
-
-	UPROPERTY(EditDefaultsOnly, Category = CrosshairUI)
-	TSubclassOf<class UUserWidget> crosshairUIFactory;
-
-	UPROPERTY(EditDefaultsOnly, Category = CameraShake)
-	TSubclassOf<class UCameraShakeBase> cameraShake;
-
-	UPROPERTY(EditDefaultsOnly, Category = Sound)
-	class USoundBase *bulletSound;
-
+	TSubclassOf<class UUserWidget> victoryUIFactory;
 public:
 	// �������� UI ���� �ν��Ͻ�
-	class UUserWidget *sniperUI;
-
-	// ũ�ν���� UI ���� �ν��Ͻ�
-	class UUserWidget *crosshairUI;
+	class UUserWidget *victoryUI;
 
 #pragma region Input
 protected:
