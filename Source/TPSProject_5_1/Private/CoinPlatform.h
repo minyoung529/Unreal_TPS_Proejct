@@ -19,6 +19,12 @@ public:
 	UPROPERTY(EditDefaultsOnly, Category = Transform)
 	FVector scale = FVector(0.1f, 0.1f, 0.1f);
 
+	UPROPERTY(EditAnywhere, Category = Clear)
+	bool isClearPlatform = false;
+
+	bool isClear = false;
+
 protected:
 	virtual void OnBeginPlay();
+	virtual void OnContactPlayer();
 };

@@ -15,7 +15,7 @@
 // Sets default values
 ATPSCharacter::ATPSCharacter()
 {
-	// ½ºÄÌ·¹Å»¸Þ½Ã µ¥ÀÌÅÍ ·Îµå
+	// ï¿½ï¿½ï¿½Ì·ï¿½Å»ï¿½Þ½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½
 	ConstructorHelpers::FObjectFinder<USkeletalMesh> TempMesh(TEXT("/Script/Engine.SkeletalMesh'/Game/__MyCharacter/Bot/Mesh/SK_Bot.SK_Bot'"));
 
 	if (TempMesh.Succeeded())
@@ -24,7 +24,7 @@ ATPSCharacter::ATPSCharacter()
 		GetMesh()->SetRelativeLocationAndRotation(FVector(0, 0, -90), FRotator(0, -90, 0));
 	}
 
-	// Ä«¸Þ¶óÀÇ ºÎ¸ð ÄÄÆ÷³ÍÆ® »ý¼º
+	// Ä«ï¿½Þ¶ï¿½ï¿½ï¿½ ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½
 	springArmComp = CreateDefaultSubobject<USpringArmComponent>(TEXT("SpringArmComp"));
 	if (springArmComp)
 	{
@@ -33,14 +33,14 @@ ATPSCharacter::ATPSCharacter()
 		springArmComp->TargetArmLength = 400;
 	}
 
-	// Ä«¸Þ¶ó ÄÄÆ÷³ÍÆ®
+	// Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 	tpsCamComp = CreateDefaultSubobject<UCameraComponent>(TEXT("TPSCamComp"));
 	if (tpsCamComp)
 	{
 		tpsCamComp->SetupAttachment(springArmComp);
 	}
 
-	// 2´Ü Á¡ÇÁ
+	// 2ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	JumpMaxCount = 2;
 }
 
@@ -51,7 +51,7 @@ void ATPSCharacter::BeginPlay()
 
 	firstJumpZVelocity = GetCharacterMovement()->JumpZVelocity;
 
-	// ½º³ªÀÌÆÛ UI À§Á¬ ÀÎ½ºÅÏ½º »ý¼º
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ UI ï¿½ï¿½ï¿½ï¿½ ï¿½Î½ï¿½ï¿½Ï½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	victoryUI = CreateWidget(GetWorld(), victoryUIFactory);
 	GetCharacterMovement()->MaxWalkSpeed = runSpeed;
 }
@@ -78,7 +78,7 @@ void ATPSCharacter::SetupPlayerInputComponent(UInputComponent *PlayerInputCompon
 		}
 	}
 
-	// ÀÎÇ² ¾×¼Ç ¹ÙÀÎµù
+	// ï¿½ï¿½Ç² ï¿½×¼ï¿½ ï¿½ï¿½ï¿½Îµï¿½
 	UEnhancedInputComponent *EnhancedInputComp = CastChecked<UEnhancedInputComponent>(PlayerInputComponent);
 	if (EnhancedInputComp)
 	{

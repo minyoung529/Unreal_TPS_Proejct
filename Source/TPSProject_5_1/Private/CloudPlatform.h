@@ -44,4 +44,7 @@ private:
 
 	void VisibleOnState();
 	void VisibleOffState();
+
+
+
 };

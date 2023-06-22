@@ -54,7 +54,7 @@ void ACloudPlatform::VisibleOnState()
 void ACloudPlatform::VisibleOffState()
 {
 	baseMesh->SetCollisionEnabled(ECollisionEnabled::Type::NoCollision);
-	FVector white = FVector::One() * 0.25f;
+	FVector white = FVector::One() * 0.75f;
 	baseMesh->SetVectorParameterValueOnMaterials(TEXT("Opacity"), white);
 }
 
