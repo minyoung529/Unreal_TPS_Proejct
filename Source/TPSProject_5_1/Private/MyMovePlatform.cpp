@@ -1,7 +1,7 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
-
 #include "MyMovePlatform.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AMyMovePlatform::AMyMovePlatform()
@@ -23,7 +23,7 @@ void AMyMovePlatform::OnTick()
 	FVector dir = (plusDirection) ? direction : -direction;
 	FVector movement = dir * speed * GetWorld()->GetDeltaSeconds();
 	float size = movement.Size();
-	
+
 	curDistance -= size;
 
 	SetActorLocation(GetActorLocation() + movement);
@@ -32,5 +32,14 @@ void AMyMovePlatform::OnTick()
 	{
 		plusDirection = !plusDirection;
 		curDistance = distance;
+	}
+}
+
+void AMyMovePlatform::OnContactPlayer()
+{
+	// if (overPlatform == 1)
+	if(distance > 9000.f)
+	{
+		UGameplayStatics::OpenLevel(this, TEXT("TPSMap"));
 	}
 }

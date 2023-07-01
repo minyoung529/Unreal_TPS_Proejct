@@ -28,6 +28,8 @@ public:
 protected:
 	virtual void OnBeginPlay();
 	virtual void OnTick() override;
+	virtual void OnContactPlayer() override;
+
 
 private:
 	bool plusDirection = true;
